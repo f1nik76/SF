@@ -1,0 +1,57 @@
+print("Крестики нолики для двиох в консоли")
+
+board = list(range(1, 10))
+
+
+def drawingBoard(board):
+    print("-" * 13)
+    print("|", board[0], "|", board[1], "|", board[2], "|")
+    print("|", board[3], "|", board[4], "|", board[5], "|")
+    print("|", board[6], "|", board[7], "|", board[8], "|")
+    print("-" * 13)
+
+
+def replaceBoard(playerID):
+    game = False
+    while not game:
+        playerSelect = int(input('В какое поле ввести ' + playerID + "? "))
+        if 1 <= playerSelect <= 9:
+            if (str(board[playerSelect - 1]) not in "XO"):
+                board[playerSelect - 1] = playerID
+                game = True
+            else:
+                print("Это поле занято, выберите свободное поле")
+        else:
+            print("Неправильный ввод. Введите число от 1 до 9 которое свободно")
+
+
+def winChek(board):
+    line = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]]
+    for i in line:
+        if board[i[0]] == board[i[1]] == board[i[2]]:
+            return board[i[0]]
+    return False
+
+
+def mainGame(board):
+    counter = 0
+    tmp = None
+    win = False
+    while not win:
+        drawingBoard(board)
+        if counter % 2 == 0:
+            replaceBoard("X")
+        else:
+            replaceBoard("O")
+        counter += 1
+
+        winPlayer = winChek(board)
+        if winPlayer:
+            print("Выиграл игрок", winPlayer)
+            win = True
+            break
+        if counter == 9:
+            print("Ничья!")
+            break
+
+mainGame(board)
