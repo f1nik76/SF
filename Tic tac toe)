@@ -36,7 +36,6 @@ def winChek(board):
 def mainGame(board):
     counter = 0
     tmp = None
-    win = False
     while not win:
         drawingBoard(board)
         if counter % 2 == 0:
